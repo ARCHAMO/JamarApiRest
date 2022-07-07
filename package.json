@@ -19,7 +19,7 @@
     "https": "^1.0.0",
     "jwt-simple": "^0.5.5",
     "method-override": "^3.0.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "nodemon": "^1.18.10",
     "oracledb": "^3.0.1",
     "request": "^2.88.0",
