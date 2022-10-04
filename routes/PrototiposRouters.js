@@ -2,10 +2,20 @@
 
 let express = require('express');
 let controller = require('../controllers/PrototiposController');
-let api = express.Router();
-let md_auth = require('../middlewares/authenticated');
 
-// Rutas para el controlador de usuarios
-api.post('/Prototipos/sendMessage', controller.sendMessage);
+function PrototiposRouters(io) {
+    // Rutas para el controlador de usuarios
+    // api.post('/Prototipos/sendMessage', controller.sendMessage(req, res, io));
+    let router = express.Router();
+    router.post('/Prototipos/sendMessage', (req, res) => {
+        let paramsIn = req.body;
+        console.log('Hola Socket');
+        io.emit("message", paramsIn);
 
-module.exports = api;
+        res.status(200).send(paramsIn);
+
+    });
+    return router;
+}
+
+module.exports = PrototiposRouters;

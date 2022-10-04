@@ -1,10 +1,11 @@
 "use strict";
 
-async function sendMessage(req, res) {
+function sendMessage(io) {
   let paramsIn = req.body;
 
-  let io = req.app.get("socketio");
-  io.emit("message", paramsIn);
+  io.on('connection', (socket) => {
+    socket.emit("message", paramsIn);
+  });
 
   res.status(200).send(paramsIn);
 

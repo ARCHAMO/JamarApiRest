@@ -12,13 +12,6 @@ const io = require("socket.io")(server, {
   }
 });
 
-// Cargamos las rutas
-let userRouters = require("./routes/UserRouters");
-let movUsuariosRouters = require("./routes/MovUsuariosRouters");
-let serEndpointsRouters = require("./routes/SerEndpointsRouters");
-let facilidadRouters = require("./routes/FacilidadRouters");
-let prototiposRouters = require("./routes/PrototiposRouters");
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -34,12 +27,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Configuracion e inicio SocketIO
+// Configuracion e inicio SocketIO y escucha del evento message
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on("message", (arg) => {
-    console.log(arg); // world
-    socket.emit("message", arg);
+  socket.on("message", (msg) => {
+    console.log(msg);
   });
 });
 
@@ -47,15 +39,12 @@ server.listen(3000, () => {
   console.log('Socket IO escuchando en *:3000');
 });
 
-io.on('message', (socket) => {
-  console.log(socket);
-});
-
-io.on("connection", (socket) => {
-  socket.on("hello", (arg) => {
-    console.log(arg); // world
-  });
-});
+// Cargamos las rutas
+let userRouters = require("./routes/UserRouters");
+let movUsuariosRouters = require("./routes/MovUsuariosRouters");
+let serEndpointsRouters = require("./routes/SerEndpointsRouters");
+let facilidadRouters = require("./routes/FacilidadRouters");
+let prototiposRouters = require("./routes/PrototiposRouters")(io);
 
 // Rutas base
 app.use("/api", userRouters);
