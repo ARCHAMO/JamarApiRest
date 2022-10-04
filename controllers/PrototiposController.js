@@ -1,12 +1,10 @@
 "use strict";
 
-let oracledb = require("oracledb");
-let database = require("../services/database");
-let dataRequest = require("../request/SerEndpointsRequest");
-let paquete = "Pkdaoserendpoints.";
-
 async function sendMessage(req, res) {
   let paramsIn = req.body;
+
+  let io = req.app.get("socketio");
+  io.emit("message", paramsIn);
 
   res.status(200).send(paramsIn);
 
