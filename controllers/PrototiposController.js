@@ -12,5 +12,5 @@ function sendMessage(io) {
 }
 
 module.exports = {
-  sendMessage
+  sendMessage,
 };

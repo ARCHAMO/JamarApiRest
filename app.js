@@ -45,6 +45,7 @@ let movUsuariosRouters = require("./routes/MovUsuariosRouters");
 let serEndpointsRouters = require("./routes/SerEndpointsRouters");
 let facilidadRouters = require("./routes/FacilidadRouters");
 let prototiposRouters = require("./routes/PrototiposRouters")(io);
+let prototiposGeneralesRouters = require("./routes/PrototiposGeneralesRouters");
 
 // Rutas base
 app.use("/api", userRouters);
@@ -52,5 +53,6 @@ app.use("/api", movUsuariosRouters);
 app.use("/api", serEndpointsRouters);
 app.use("/api", facilidadRouters);
 app.use("/api", prototiposRouters);
+app.use("/api", prototiposGeneralesRouters);
 
 module.exports = app;
